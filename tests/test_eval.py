@@ -2,8 +2,8 @@ from unittest import TestCase
 
 from langchain_openai import ChatOpenAI
 
-from langval.eval.langchain import LangchainEval
-from langval.model import Validation
+from langeval.eval.langchain import LangchainEval
+from langeval.model import Validation
 
 llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.3)
 _eval = LangchainEval(

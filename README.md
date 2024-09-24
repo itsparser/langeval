@@ -1,12 +1,12 @@
-# langval
+# LangEval
 
-langval is a language model evaluation tool for evaluating the toxicity, accuracy, hallucination, and bias of language
+LangEval is a language model evaluation tool for evaluating the toxicity, accuracy, hallucination, and bias of language
 models.
 
 ## Installation
 
 ```bash
-pip install langval
+pip install langeval
 ```
 
 ## Usage
@@ -16,11 +16,11 @@ from unittest import TestCase
 
 from langchain_openai import ChatOpenAI
 
-from langval.eval.langchain import LangchainEval
-from langval.model import Validation
+from langeval.eval.langchain import LangchainEval
+from langeval.model import Validation
 
 llm = ChatOpenAI(model='gpt-4o-mini', temperature=0.3)
-langeval = LangchainEval(
+leval = LangchainEval(
     llm, validation=Validation(toxicity=0.2, accuracy=0.9, hallucination=0.2, bias=0.1)
 )
 
@@ -28,7 +28,7 @@ langeval = LangchainEval(
 class TestEval(TestCase):
     model = llm
 
-    @langeval.question('What is the capital of France?')
+    @leval.question('What is the capital of France?')
     def test_eval(self):
         return 'paris'
 
@@ -40,4 +40,4 @@ Contributions are welcome! Please read the [contributing guidelines](CONTRIBUTIN
 
 ## License
 
-langval is licensed under the [MIT License](LICENSE).   
+langeval is licensed under the [MIT License](LICENSE).   

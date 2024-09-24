@@ -4,10 +4,10 @@ from typing import Any
 from langchain_core.language_models import BaseChatModel
 from langchain_core.prompts import PromptTemplate
 
-from langval.error import EvalThreshold
-from langval.eval.base import BaseEval
-from langval.model import EvalMetric, Validation
-from langval.prompt import LANGCHAIN_SYSTEM_PROMPT
+from ..error import EvalThreshold
+from ..eval.base import BaseEval
+from ..model import EvalMetric, Validation
+from ..prompt import LANGCHAIN_SYSTEM_PROMPT
 
 
 class LangchainEval(BaseEval):

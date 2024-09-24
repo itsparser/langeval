@@ -3,9 +3,9 @@ from typing import Any
 
 from pydantic import BaseModel
 
-from langval.model import EvalMetric, ModuleModel, Validation
-from langval.tools import arithemetic, comparison
-from langval.utils import check_type
+from ..model import EvalMetric, ModuleModel, Validation
+from ..tools import arithemetic, comparison
+from ..utils import check_type
 
 
 class BaseEval(ABC):
@@ -70,13 +70,13 @@ class BaseEval(ABC):
 
         return decorator
 
-    def question(cls, q: str = None):
+    def question(self, q: str = None):
         def decorator(func):
             def wrapper_func(*args, **kwargs):
                 expected_answer = func(*args, **kwargs)
                 model = args[0].model
                 result = model.invoke(q)
-                result = cls.eval(
+                result = self.eval(
                     question=q, expected_answer=expected_answer, answer=result
                 )
                 print(f"after request {q}\n{result}")
