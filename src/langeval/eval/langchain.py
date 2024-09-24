@@ -7,7 +7,7 @@ from langchain_core.prompts import PromptTemplate
 from ..error import EvalThreshold
 from ..eval.base import BaseEval
 from ..model import EvalMetric, Validation
-from ..prompt import LANGCHAIN_SYSTEM_PROMPT
+from .._prompt import LANGCHAIN_SYSTEM_PROMPT
 
 
 class LangchainEval(BaseEval):

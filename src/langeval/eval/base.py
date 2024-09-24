@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 from ..model import EvalMetric, ModuleModel, Validation
 from ..tools import arithemetic, comparison
-from ..utils import check_type
+from .._utils import check_type
 
 
 class BaseEval(ABC):
