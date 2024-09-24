@@ -59,5 +59,5 @@ class LangchainEval(BaseEval):
                 f"Following exact match found to be in Meet Expectation: {exact_match}"
             )
         if result:
-            raise EvalThreshold(result)
+            raise EvalThreshold(result, question, answer, expected_answer)
         return {"score": validation_result, "result": result}
