@@ -1,5 +1,6 @@
 import operator
 from enum import Enum
+from typing import Annotated
 
 from pydantic import BaseModel, Field
 
@@ -10,22 +11,20 @@ class ArithemeticOperation(str, Enum):
     divide = 'divide'
 
 
-class ComparisonEnum(BaseModel):
+class ComparisonEnum(str, Enum):
     greater_than = 'greater_than'
     less_than = 'less_than'
     equal_to = 'equal_to'
     not_equal_to = 'not_equal_to'
-    greater_than_or_equal_to = 'greater_than_or_equal_to'
-    less_than_or_equal_to = 'less_than_or_equal_to'
 
 class Comparison(BaseModel):
-    num1: float = Field(description="first number")
-    num2: float = Field(description="second number")
+    num1: Annotated[float| str, Field(description="first number or string")]
+    num2: Annotated[float| str, Field(description="second number or string")]
 
 class Arithemetic(BaseModel):
-    num1: float = Field(description="first number")
-    num2: float = Field(description="second number")
-    operation: ArithemeticOperation = Field(description="operation to be performed")
+    num1: Annotated[float, Field(description="first number")]
+    num2: Annotated[float, Field(description="second number")]
+    operation: Annotated[ArithemeticOperation, Field(description="operation to be performed")]
 
 
 def arithemetic(arithmetic: Arithemetic) -> float:
@@ -47,15 +46,20 @@ def arithemetic(arithmetic: Arithemetic) -> float:
     else:
         raise ValueError("Invalid operation")
 
-def comparison(com: Arithemetic) -> str:
+def comparison(com: Comparison) -> str:
     """
     Compares two numbers
     Args:
-        com (Arithemetic): Input object containing two numbers and operation to be performed
+        com (Comparison): Input object containing two numbers or strings to been compared
     Returns:
         float: Result of the comparison
     """
-    if com.num1 > com.num2:
+    if isinstance(com.num1, str) or isinstance(com.num2, str):
+        if com.num1 == com.num2:
+            return ComparisonEnum.equal_to
+        elif com.num1 != com.num2:
+            return ComparisonEnum.not_equal_to
+    elif com.num1 > com.num2:
         return ComparisonEnum.greater_than
     elif com.num1 < com.num2:
         return ComparisonEnum.less_than
