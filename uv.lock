@@ -427,8 +427,13 @@ dependencies = [
     { name = "langchain" },
     { name = "langchain-core" },
     { name = "langchain-ollama" },
-    { name = "langchain-openai" },
     { name = "langgraph" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "langchain-ollama" },
+    { name = "langchain-openai" },
     { name = "ruff" },
 ]
 
@@ -437,8 +442,13 @@ requires-dist = [
     { name = "langchain", specifier = ">=0.3.0" },
     { name = "langchain-core", specifier = ">=0.3.5" },
     { name = "langchain-ollama", specifier = ">=0.2.0" },
-    { name = "langchain-openai", specifier = ">=0.2.0" },
     { name = "langgraph", specifier = ">=0.2.26" },
+]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "langchain-ollama", specifier = ">=0.2.0" },
+    { name = "langchain-openai", specifier = ">=0.2.0" },
     { name = "ruff", specifier = ">=0.6.7" },
 ]
 
