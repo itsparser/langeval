@@ -1,7 +1,7 @@
 [project]
-name = "langval"
-version = "0.1.0"
-description = "langval is a language model evaluation tool for evaluating the toxicity, accuracy, hallucination, and bias of language models."
+name = "langeval"
+version = "0.0.1"
+description = "LangEval is a language model evaluation tool for evaluating the toxicity, accuracy, hallucination, and bias of language models."
 authors = [
     { name = "Vasanth Kumar", email = "itsparser@gmail.com" },
     { name = "Adheeban", email = "iamadhee@gmail.com" },
@@ -31,17 +31,3 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 sources = ["src"]
 
-
-
-[tool.ruff.lint]
-select = ["F", "I"]
-ignore = ["F401"]
-
-[tool.ruff]
-line-length = 100
-
-[tool.ruff.format]
-quote-style = "single"
-indent-style = "tab"
-docstring-code-format = true
-docstring-code-line-length = 20
