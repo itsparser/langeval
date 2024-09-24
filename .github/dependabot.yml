@@ -5,7 +5,9 @@
 
 version: 2
 updates:
-  - package-ecosystem: "" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  - package-ecosystem: "poetry" # Set to poetry for Python projects using Poetry
+    directory: "/" # Location of pyproject.toml file
     schedule:
-      interval: "weekly"
+      interval: "weekly" # Options: daily, weekly, monthly
+    # Optionally specify open-pull-requests-limit to control the maximum number of open PRs
+    open-pull-requests-limit: 5
