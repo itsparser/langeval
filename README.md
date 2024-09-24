@@ -1,6 +1,7 @@
 # langval
 
-langval is a language model evaluation tool for evaluating the toxicity, accuracy, hallucination, and bias of language models.
+langval is a language model evaluation tool for evaluating the toxicity, accuracy, hallucination, and bias of language
+models.
 
 ## Installation
 
@@ -11,17 +12,26 @@ pip install langval
 ## Usage
 
 ```python
-from langval.eval import EvalTest
-from langval.model import ModuleModel
+from unittest import TestCase
 
-@EvalTest.register(toxicity=0.5, accuracy=0.8, hallucination=0.2, bias=0.1)
-class TestBaseCase(EvalTest):
-    def test(self):
-        return ModuleModel(name="my_module", type="function", metrics=self.metrics)
+from langchain_openai import ChatOpenAI
 
-langval = Langval()
-langval.add_test(MyTest)
-langval.run()
+from langval.eval.langchain import LangchainEval
+from langval.model import Validation
+
+llm = ChatOpenAI(model='gpt-4o-mini', temperature=0.3)
+langeval = LangchainEval(
+    llm, validation=Validation(toxicity=0.2, accuracy=0.9, hallucination=0.2, bias=0.1)
+)
+
+
+class TestEval(TestCase):
+    model = llm
+
+    @langeval.question('What is the capital of France?')
+    def test_eval(self):
+        return 'paris'
+
 ```
 
 ## Contributing
