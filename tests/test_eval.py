@@ -1,7 +1,6 @@
 from unittest import TestCase
 
 from langchain_openai import ChatOpenAI
-from openai import api_key
 
 from langval.eval.langchain import LangchainEval
 from langval.model import Validation
