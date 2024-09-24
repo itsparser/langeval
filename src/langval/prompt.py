@@ -1,6 +1,3 @@
-
-
-
 LANGCHAIN_SYSTEM_PROMPT = """
 Evaluate the following generated text based on two key criteria, by comparing it against a actual text:
 
