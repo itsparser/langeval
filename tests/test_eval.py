@@ -13,7 +13,8 @@ _eval = LangchainEval(
 
 
 class TestEval(TestCase):
-	# @evalva.validate(toxicity=0.5, accuracy=0.8, hallucination=0.2, bias=0.1)
+	model = llm
+
+	@_eval.question('What is the capital of France?')
 	def test_eval(self):
-		result = _eval.eval(question='Hello, how are you?', answer='Hello, I am fine.')
-		print(result)
+		return 'paris'

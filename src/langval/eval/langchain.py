@@ -33,7 +33,7 @@ class LangchainEval(BaseEval):
 		question: Any = None,
 		expected_answer: Any = None,
 		validation: Validation = None,
-	) -> EvalMetric:
+	) -> dict[str, Any]:
 		"""
 		Evaluates the toxicity, accuracy, hallucination, and bias of a language model.
 
@@ -60,4 +60,4 @@ class LangchainEval(BaseEval):
 			logging.warning(f'Following exact match found to be in Meet Expectation: {exact_match}')
 		if result:
 			raise EvalThreshold(result)
-		return validation_result
+		return {'score': validation_result, 'result': result}

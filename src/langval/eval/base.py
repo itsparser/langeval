@@ -55,7 +55,8 @@ class BaseEval(ABC):
 	def validate(cls, toxicity: float, accuracy: float, hallucination: float, bias: float):
 		def decorator(_mod):
 			_type = check_type(_mod)
-			cls.registry[_type][_mod.__name__] = ModuleModel(
+			mod = cls.registry.setdefault(_type, {})
+			mod[_mod.__name__] = ModuleModel(
 				name=_mod.__name__,
 				type=_type,
 				metrics=Validation(
@@ -65,10 +66,16 @@ class BaseEval(ABC):
 
 		return decorator
 
-	@classmethod
 	def question(cls, q: str = None):
 		def decorator(func):
-			setattr(func, 'question', q)
-			return func
+			def wrapper_func(*args, **kwargs):
+				expected_answer = func(*args, **kwargs)
+				model = args[0].model
+				result = model.invoke(q)
+				result = cls.eval(question=q, expected_answer=expected_answer, answer=result)
+				print(f'after request {q}\n{result}')
+				return result
+
+			return wrapper_func
 
 		return decorator

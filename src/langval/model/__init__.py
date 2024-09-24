@@ -52,4 +52,4 @@ class EvalMetric(Validation):
 class ModuleModel(BaseModel):
 	name: str = Field(description='name of the module')
 	type: str = Field(description='type of the module')
-	metrics: EvalMetric = Field(description='metrics of the module')
+	metrics: Validation = Field(description='metrics of the module')
