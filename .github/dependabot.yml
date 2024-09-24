@@ -5,7 +5,7 @@
 
 version: 2
 updates:
-  - package-ecosystem: "poetry" # Set to poetry for Python projects using Poetry
+  - package-ecosystem: "pip" # Set to poetry for Python projects using Poetry
     directory: "/" # Location of pyproject.toml file
     schedule:
       interval: "weekly" # Options: daily, weekly, monthly
