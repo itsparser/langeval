@@ -1,6 +1,3 @@
-import json
-
-
 class BaseLangvalError(Exception):
     """
     Base class for all langval errors.
