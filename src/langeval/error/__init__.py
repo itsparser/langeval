@@ -1,3 +1,6 @@
+import json
+
+
 class BaseLangvalError(Exception):
     """
     Base class for all langval errors.
@@ -20,7 +23,13 @@ class EvalThreshold(BaseLangvalError):
         self.expected_answer = expected_answer
 
     def __str__(self):
-        return f"Validation failed for Question {self.question} and Answer {self.answer} and Expected Answer {self.expected_answer}. failed Validation score: {self.breached_value}"
+        return (
+            f"\n Error Message: Validation failed for "
+            f"\n \t Question :- {self.question},"
+            f"\n \t Answer :- {self.answer}"
+            f"\n \t Expected Answer :- {self.expected_answer}. "
+            f"\n \t Validation score :- {self.breached_value}"
+        )
 
     def __dict__(self):
         return {

@@ -2,7 +2,6 @@ from typing import Any
 
 from langchain_core.language_models import BaseChatModel
 from langchain_core.prompts import PromptTemplate
-from langchain_core.runnables import Runnable
 
 from .._utils import logger
 from ..error import EvalThreshold
@@ -47,12 +46,17 @@ class LangchainEval(BaseEval):
         """
         if not validation:
             validation = self.validation
-        if question:
-            question = f"question -->\n {question}\n"
-        if expected_answer:
-            expected_answer = f"Expected answer -->\n {expected_answer}\n"
+
+        _question = f"question -->\n {question}\n" if question else ""
+        _expected_answer = (
+            f"Expected answer -->\n {expected_answer}\n" if expected_answer else ""
+        )
         validation_result: dict | EvalMetric = self.node.invoke(
-            {"question": question, "answer": answer, "expected_answer": expected_answer}
+            {
+                "question": _question,
+                "answer": answer,
+                "expected_answer": _expected_answer,
+            }
         )
         result, exact_match = validation.compare(validation_result)
         if exact_match:
@@ -62,17 +66,3 @@ class LangchainEval(BaseEval):
         if result:
             raise EvalThreshold(result, question, answer, expected_answer)
         return {"score": validation_result, "result": result}
-
-    def question(self, model: Runnable, q: str = None):
-        def decorator(func):
-            def wrapper_func(*args, **kwargs):
-                expected_answer = func(*args, **kwargs)
-                result = model.invoke(q)
-                result = self.eval(
-                    question=q, expected_answer=expected_answer, answer=result
-                )
-                return result
-
-            return wrapper_func
-
-        return decorator
