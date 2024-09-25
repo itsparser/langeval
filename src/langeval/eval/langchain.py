@@ -1,9 +1,9 @@
-import logging
 from typing import Any
 
 from langchain_core.language_models import BaseChatModel
 from langchain_core.prompts import PromptTemplate
 
+from .._utils import logger
 from ..error import EvalThreshold
 from ..eval.base import BaseEval
 from ..model import EvalMetric, Validation
@@ -46,18 +46,23 @@ class LangchainEval(BaseEval):
         """
         if not validation:
             validation = self.validation
-        if question:
-            question = f"question -->\n {question}\n"
-        if expected_answer:
-            expected_answer = f"Expected answer -->\n {expected_answer}\n"
+
+        _question = f"question -->\n {question}\n" if question else ""
+        _expected_answer = (
+            f"Expected answer -->\n {expected_answer}\n" if expected_answer else ""
+        )
         validation_result: dict | EvalMetric = self.node.invoke(
-            {"question": question, "answer": answer, "expected_answer": expected_answer}
+            {
+                "question": _question,
+                "answer": answer,
+                "expected_answer": _expected_answer,
+            }
         )
         result, exact_match = validation.compare(validation_result)
         if exact_match:
-            logging.warning(
+            logger.warning(
                 f"Following exact match found to be in Meet Expectation: {exact_match}"
             )
         if result:
-            raise EvalThreshold(result)
+            raise EvalThreshold(result, question, answer, expected_answer)
         return {"score": validation_result, "result": result}

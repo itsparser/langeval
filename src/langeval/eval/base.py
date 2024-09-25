@@ -69,19 +69,3 @@ class BaseEval(ABC):
             )
 
         return decorator
-
-    def question(self, q: str = None):
-        def decorator(func):
-            def wrapper_func(*args, **kwargs):
-                expected_answer = func(*args, **kwargs)
-                model = args[0].model
-                result = model.invoke(q)
-                result = self.eval(
-                    question=q, expected_answer=expected_answer, answer=result
-                )
-                print(f"after request {q}\n{result}")
-                return result
-
-            return wrapper_func
-
-        return decorator
