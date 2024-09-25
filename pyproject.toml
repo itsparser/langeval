@@ -1,7 +1,7 @@
 [project]
-name = "langeval"
+name = "langval"
 version = "0.0.2"
-description = "LangEval is a language model evaluation tool for evaluating the toxicity, accuracy, hallucination, and bias of language models."
+description = "Langval is a language model evaluation tool for evaluating the toxicity, accuracy, hallucination, and bias of language models."
 authors = [
     { name = "Vasanth Kumar", email = "itsparser@gmail.com" },
     { name = "Adheeban", email = "iamadhee@gmail.com" },

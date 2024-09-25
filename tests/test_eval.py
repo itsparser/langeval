@@ -1,10 +1,10 @@
 from langchain_openai import ChatOpenAI
 
-import langeval
-from langeval import TestCase
-from langeval.eval import BaseEval
-from langeval.eval.langchain import LangchainEval
-from langeval.model import Validation
+import langval
+from langval import TestCase
+from langval.eval import BaseEval
+from langval.eval.langchain import LangchainEval
+from langval.model import Validation
 
 llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.3)
 _eval = LangchainEval(
@@ -22,11 +22,11 @@ class TestEval(TestCase):
         cls.model = llm
         super().setUpClass()
 
-    @langeval.assess(model=llm, question="What is the capital of France?")
+    @langval.assess(model=llm, question="What is the capital of France?")
     def test_eval(self):
         return "paris"
 
-    @langeval.assess("What is the capital of India?")
+    @langval.assess("What is the capital of India?")
     def test_001(self):
         return "paris"
 
