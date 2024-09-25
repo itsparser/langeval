@@ -1,6 +1,8 @@
 name: build and release
 
-on: [ ]
+on:
+  release:
+    types: [published]
 
 jobs:
   pypi-publish:
