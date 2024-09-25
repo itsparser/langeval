@@ -2,7 +2,8 @@ from typing import Annotated
 
 from langchain_core.runnables import Runnable
 
-from langeval.eval import BaseEval
+
+from .eval import BaseEval
 
 
 def assess(
@@ -10,7 +11,7 @@ def assess(
     model: Annotated[Runnable, "Langchain Graph or Model to run the Invoke"] = None,
 ):
     def decorator(func):
-        def wrapper_func(slf: BaseEval, *args, **kwargs):
+        def wrapper_func(*args, **kwargs):
             expected_answer = func(*args, **kwargs)
             cls = args[0]
             if isinstance(cls, BaseEval):
