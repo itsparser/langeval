@@ -12,8 +12,6 @@ _eval = LangchainEval(
 
 
 class TestEval(TestCase):
-    model = llm
-
-    @_eval.question("What is the capital of France?")
+    @_eval.question(llm, "What is the capital of France?")
     def test_eval(self):
         return "paris"

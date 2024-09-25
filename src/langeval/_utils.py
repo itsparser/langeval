@@ -1,4 +1,10 @@
 import inspect
+import logging
+
+logger = logging.getLogger(__name__)
+logger.formatter = logging.Formatter(
+    "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
 
 
 def check_type(obj):

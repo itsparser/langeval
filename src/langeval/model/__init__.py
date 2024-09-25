@@ -35,12 +35,12 @@ class Validation(BaseModel):
                 exact_match.append(field)
             elif criterion == "MAX":
                 if self_value < other_value:
-                    comparison[field] = f"Expected {self_value} but got {other_value}"
+                    comparison[field] = f"Expected {self_value} < but got {other_value}"
                 else:
                     continue
             elif criterion == "MIN":
                 if self_value > other_value:
-                    comparison[field] = f"Exceeded by {self_value} by {other_value}"
+                    comparison[field] = f"Expected {self_value} > but got {other_value}"
                 else:
                     continue
             else:
